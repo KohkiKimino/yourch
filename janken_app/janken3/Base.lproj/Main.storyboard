@@ -68,7 +68,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="image" destination="Zcf-Cx-cwD" id="gtS-0m-mYD"/>
+                        <outlet property="enemHandEmojiLabel" destination="Zcf-Cx-cwD" id="MtJ-6u-Laa"/>
                         <outlet property="result" destination="3HD-t2-f1x" id="9fJ-8U-gYA"/>
                     </connections>
                 </viewController>
