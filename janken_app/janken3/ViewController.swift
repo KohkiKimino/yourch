@@ -14,7 +14,11 @@ class ViewController: UIViewController {
     var timer: Timer?
     var countNum = 0
     var cp = Int.random(in:0...2)
-    
+    enum Result: String {
+        case draw = "draw"
+        case win = "win!"
+        case lose = "lose..."
+    }
     @objc enum Handtype: Int {
         case rock = 0
         case scissors = 1
@@ -46,38 +50,39 @@ class ViewController: UIViewController {
     }
     // ⑤その他の処理
     //animation
-    func anime(){
+    func anime() {
         let animateHandType = Handtype(rawValue: countNum%3) ?? Handtype.rock
         enemHandEmojiLabel.text = animateHandType.toEmoji()
         countNum = countNum + 1
     }
     //result
-    func janken(you:Handtype) -> String?{
-        if (you.rawValue == cp){
-            return "draw"
+    func janken(you:Handtype) -> String? {
+        if (you.rawValue == cp) {
+            return Result.draw.rawValue
         }
-        else if ((you.rawValue + 1)%3 == cp ) {
-            return "win!"
+        else if ((you.rawValue + 1)%3 == cp) {
+            return Result.win.rawValue
         }
-        else if ((you.rawValue + 2)%3 == cp ) {
-            return "lose..."
+        else if ((you.rawValue + 2)%3 == cp) {
+            return Result.lose.rawValue
         }
         return nil
     }
     //reset
-    func reset(){
+    func reset() {
         countNum = 0
         result.text = "Janken...";
         cp = Int.random(in:0...2)
+        self.timer?.invalidate()
     }
     //janken
     @objc func startJankenWithAnimation(myHand: Handtype) {
-        if ( countNum < 10) {
+        if (countNum < 10) {
             anime()
         }
-        else{
+        else {
             self.timer?.invalidate()
-            result.text = "\(janken(you: myHand)!)"
+            result.text = "\(janken(you: myHand) ?? Result.draw.rawValue)"
             //cpHand
             if (Handtype.rock.rawValue == cp) {
                 enemHandEmojiLabel.text = Handtype.rock.toEmoji() // 👊
@@ -89,15 +94,15 @@ class ViewController: UIViewController {
         }
     }
     //myHandRock
-    @objc func timerRock(){
+    @objc func timerRock() {
         startJankenWithAnimation(myHand:.rock)
     }
     //myHandScissors
-    @objc func timerScissors(){
+    @objc func timerScissors() {
         startJankenWithAnimation(myHand:.scissors)
     }
     //myHandPaper
-    @objc func timerPaper(){
+    @objc func timerPaper() {
         startJankenWithAnimation(myHand:.paper)
     }
 }
