@@ -9,8 +9,14 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import WebKit
 
-class ArticleListViewController: UIViewController, UITableViewDataSource {
+
+class ArticleListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    
+    @IBOutlet weak var TableView: UITableView!
+    
     var articles: [[String: String?]] = [] // 記事を入れるプロパティを定義
     let table = UITableView()
     
@@ -18,11 +24,12 @@ class ArticleListViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        title = "記事一覧"
+        title = "Qiita Client"
 
         table.frame = view.frame
         view.addSubview(table)
         table.dataSource = self
+        table.delegate = self
 
         getArticles()
     }
@@ -36,7 +43,8 @@ class ArticleListViewController: UIViewController, UITableViewDataSource {
         json.forEach { (_, json) in
             let article: [String: String?] = [
                 "title": json["title"].string,
-                "userId": json["user"]["id"].string
+                "userId": json["user"]["id"].string,
+                "url": json["url"].string
             ] // 1つの記事を表す辞書型を作る
             self.articles.append(article) // 配列に入れる
         }
@@ -54,5 +62,12 @@ class ArticleListViewController: UIViewController, UITableViewDataSource {
         cell.detailTextLabel?.text = article["userId"]! // 投稿者のユーザーIDをdetailTextLabelにセット
         return cell // cellを返す
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = detailViewController()
+        //let article = articles[indexPath.row]
+        //let detail = article["url"]!
+        vc.viewDidLoad()
+        
+        self.navigationController?.pushViewController(vc, animated: true)
 }
-
+}
