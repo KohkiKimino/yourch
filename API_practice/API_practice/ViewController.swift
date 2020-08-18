@@ -66,8 +66,8 @@ class ArticleListViewController: UIViewController, UITableViewDelegate, UITableV
         let vc = detailViewController()
         //let article = articles[indexPath.row]
         //let detail = article["url"]!
-        vc.viewDidLoad()
         
         self.navigationController?.pushViewController(vc, animated: true)
+        vc.viewDidLoad()
 }
 }
