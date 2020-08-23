@@ -10,19 +10,16 @@ import UIKit
 import WebKit
 
 class detailViewController: UIViewController {
-
-
-    @IBOutlet weak var webview: WKWebView!
+    
+    var url:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //let url = URL(string: "https://www.google.com")
-        //let urlRequest = URLRequest(url: "https://www.google.com")
-        //webview.load(urlRequest)
-        let myURL = URL(string:"https://www.google.com")
+        let webView = WKWebView.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
+        let myURL = URL(string:url)
         let myRequest = URLRequest(url: myURL!)
-        webview.load(myRequest)
-        //webview.load(URLRequest(url: URL(string: "https://www.google.com")!))
+        webView.load(myRequest)
+        self.view.addSubview(webView)
     }
 }

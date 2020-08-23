@@ -14,26 +14,22 @@ import WebKit
 
 class ArticleListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
     @IBOutlet weak var TableView: UITableView!
     
-    var articles: [[String: String?]] = [] // 記事を入れるプロパティを定義
-    let table = UITableView()
+    var articles: [[String: String?]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         title = "Qiita Client"
 
-        table.frame = view.frame
-        view.addSubview(table)
-        table.dataSource = self
-        table.delegate = self
+        TableView.frame = view.frame
+        TableView.dataSource = self
+        TableView.delegate = self
 
         getArticles()
     }
-    
+    //Qiita記事を持ってくる
     func getArticles() { Alamofire.request( "https://qiita.com/api/v2/items?page=1&per_page=20").responseJSON {
         res in
         guard let returnValue = res.result.value else {
@@ -45,29 +41,30 @@ class ArticleListViewController: UIViewController, UITableViewDelegate, UITableV
                 "title": json["title"].string,
                 "userId": json["user"]["id"].string,
                 "url": json["url"].string
-            ] // 1つの記事を表す辞書型を作る
-            self.articles.append(article) // 配列に入れる
+            ]
+            self.articles.append(article)
         }
-        self.table.reloadData()
-            //print(self.articles) // 全ての記事が保存出来たら配列を確認
+        self.TableView.reloadData()
         }
     }
+    //表示したいセル数
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articles.count
     }
+    //タイトルとIDをセット
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell") // Subtitleのあるセルを生成
-        let article = articles[indexPath.row] // 行数番目の記事を取得
-        cell.textLabel?.text = article["title"]! // 記事のタイトルをtextLabelにセット
-        cell.detailTextLabel?.text = article["userId"]! // 投稿者のユーザーIDをdetailTextLabelにセット
-        return cell // cellを返す
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+        let article = articles[indexPath.row]
+        cell.textLabel?.text = article["title"]!
+        cell.detailTextLabel?.text = article["userId"]!
+        return cell
     }
+    //画面遷移
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = detailViewController()
-        //let article = articles[indexPath.row]
-        //let detail = article["url"]!
-        
+        let article = articles[(indexPath).row]
+        let detail = article["url"]!
+        vc.url = detail!
         self.navigationController?.pushViewController(vc, animated: true)
-        vc.viewDidLoad()
-}
+        }
 }
