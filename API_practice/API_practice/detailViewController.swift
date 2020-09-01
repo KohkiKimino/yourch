@@ -17,9 +17,10 @@ class detailViewController: UIViewController {
         super.viewDidLoad()
 
         let webView = WKWebView.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
-        let myURL = URL(string:url)
-        let myRequest = URLRequest(url: myURL!)
+        if let myURL = URL(string:url) {
+        let myRequest = URLRequest(url: myURL)
         webView.load(myRequest)
         self.view.addSubview(webView)
+        }
     }
 }

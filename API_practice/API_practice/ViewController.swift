@@ -14,7 +14,7 @@ import WebKit
 
 class ArticleListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var TableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
     var articles: [[String: String?]] = []
     
@@ -23,9 +23,9 @@ class ArticleListViewController: UIViewController, UITableViewDelegate, UITableV
         
         title = "Qiita Client"
 
-        TableView.frame = view.frame
-        TableView.dataSource = self
-        TableView.delegate = self
+        tableView.frame = view.frame
+        tableView.dataSource = self
+        tableView.delegate = self
 
         getArticles()
     }
@@ -41,10 +41,10 @@ class ArticleListViewController: UIViewController, UITableViewDelegate, UITableV
                 "title": json["title"].string,
                 "userId": json["user"]["id"].string,
                 "url": json["url"].string
-            ]
+                ]
             self.articles.append(article)
         }
-        self.TableView.reloadData()
+        self.tableView.reloadData()
         }
     }
     //表示したいセル数
@@ -53,12 +53,15 @@ class ArticleListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     //タイトルとIDをセット
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-        let article = articles[indexPath.row]
-        cell.textLabel?.text = article["title"]!
-        cell.detailTextLabel?.text = article["userId"]!
-        return cell
+
+       let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! CustomTableViewCell
+       let article = articles[indexPath.row]
+       cell.title.text = article["title"]!
+       cell.id.text = article["userId"]!
+       
+       return cell
     }
+ 
     //画面遷移
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = detailViewController()
@@ -66,5 +69,6 @@ class ArticleListViewController: UIViewController, UITableViewDelegate, UITableV
         let detail = article["url"]!
         vc.url = detail!
         self.navigationController?.pushViewController(vc, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
         }
 }
