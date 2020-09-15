@@ -15,8 +15,12 @@ import WebKit
 class ArticleListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    
-    var articles: [[String: String?]] = []
+    struct article {
+        let title: String?
+        let userId: String?
+        let url: String?
+    }
+    var articles: [article] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,12 +41,12 @@ class ArticleListViewController: UIViewController, UITableViewDelegate, UITableV
         }
         let json = JSON(returnValue)
         json.forEach { (_, json) in
-            let article: [String: String?] = [
-                "title": json["title"].string,
-                "userId": json["user"]["id"].string,
-                "url": json["url"].string
-                ]
-            self.articles.append(article)
+        if let titleData = json["title"].string,
+            let userIdData = json["user"]["id"].string,
+            let urlData = json["url"].string {
+                let data = article(title: titleData,userId: userIdData,url: urlData)
+                self.articles.append(data)
+            }
         }
         self.tableView.reloadData()
         }
@@ -53,12 +57,10 @@ class ArticleListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     //タイトルとIDをセット
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! CustomTableViewCell
        let article = articles[indexPath.row]
-       cell.title.text = article["title"]!
-       cell.id.text = article["userId"]!
-       
+       cell.title.text = article.title
+       cell.id.text = article.userId
        return cell
     }
  
@@ -66,8 +68,9 @@ class ArticleListViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = detailViewController()
         let article = articles[(indexPath).row]
-        let detail = article["url"]!
-        vc.url = detail!
+        if let detail = article.url {
+        vc.url = detail
+        }
         self.navigationController?.pushViewController(vc, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
         }

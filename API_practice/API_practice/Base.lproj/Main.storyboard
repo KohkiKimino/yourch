@@ -35,7 +35,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yuj-fN-0Rz">
-                                                    <rect key="frame" x="24" y="23" width="384" height="21"/>
+                                                    <rect key="frame" x="24" y="19" width="384" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="384" id="EUS-ME-SDN"/>
                                                     </constraints>
@@ -44,7 +44,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kJj-Dk-nWR">
-                                                    <rect key="frame" x="24" y="62" width="384" height="18"/>
+                                                    <rect key="frame" x="24" y="66" width="384" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="384" id="af2-pY-436"/>
                                                     </constraints>
@@ -54,10 +54,10 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="kJj-Dk-nWR" secondAttribute="bottom" constant="12" id="30s-kB-VH5"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="kJj-Dk-nWR" secondAttribute="bottom" constant="8" id="30s-kB-VH5"/>
                                                 <constraint firstItem="kJj-Dk-nWR" firstAttribute="leading" secondItem="IJR-ng-8PO" secondAttribute="leadingMargin" constant="8" id="38g-Ql-PQ7"/>
                                                 <constraint firstItem="yuj-fN-0Rz" firstAttribute="leading" secondItem="IJR-ng-8PO" secondAttribute="leadingMargin" constant="8" id="LBk-ju-nry"/>
-                                                <constraint firstItem="yuj-fN-0Rz" firstAttribute="top" secondItem="IJR-ng-8PO" secondAttribute="topMargin" constant="12" id="PR0-YS-yWh"/>
+                                                <constraint firstItem="yuj-fN-0Rz" firstAttribute="top" secondItem="IJR-ng-8PO" secondAttribute="topMargin" constant="8" id="PR0-YS-yWh"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
