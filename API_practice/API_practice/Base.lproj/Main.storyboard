@@ -87,7 +87,7 @@
         <!--Detail View Controller-->
         <scene sceneID="y5x-oy-vnu">
             <objects>
-                <viewController storyboardIdentifier="detailViewController" id="DmR-ls-xDh" customClass="detailViewController" customModule="API_practice" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="DmR-ls-xDh" customClass="DetailViewController" customModule="API_practice" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QVW-Kh-ljp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

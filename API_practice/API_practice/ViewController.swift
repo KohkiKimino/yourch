@@ -12,14 +12,15 @@ import SwiftyJSON
 import WebKit
 
 
+struct article {
+    let title: String?
+    let userId: String?
+    let url: String?
+}
 class ArticleListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    struct article {
-        let title: String?
-        let userId: String?
-        let url: String?
-    }
+
     var articles: [article] = []
     
     override func viewDidLoad() {
@@ -59,19 +60,18 @@ class ArticleListViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! CustomTableViewCell
        let article = articles[indexPath.row]
-       cell.title.text = article.title
-       cell.id.text = article.userId
+       cell.configure(model: article)
        return cell
     }
  
     //画面遷移
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = detailViewController()
+        let vc = DetailViewController()
         let article = articles[(indexPath).row]
         if let detail = article.url {
-        vc.url = detail
+            vc.url = detail
+            self.navigationController?.pushViewController(vc, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
-        self.navigationController?.pushViewController(vc, animated: true)
-        tableView.deselectRow(at: indexPath, animated: true)
-        }
+    }
 }

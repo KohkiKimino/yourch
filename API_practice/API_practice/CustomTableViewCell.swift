@@ -23,5 +23,9 @@ class CustomTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    func configure(model: article) {
+        title.text = model.title
+        id.text = model.userId
+    }
 
 }
